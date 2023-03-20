@@ -1,0 +1,206 @@
+/* PARAMETROS GLOBALES */
+:root {
+    --font-family-type: 'Bona Nova', serif;
+
+ /* TYPOGRAPHY */
+    --typography-color--black: #222621;
+    --typography-color--subtitles: #8C592B;
+    --typography-color--paragraphs: #BF9169;
+    --typography-color--button: white;
+
+    --constraste-color: #FCAF25;
+
+/* BUTTON */
+    --background-color--button: #DEBEB1;
+    --background-color--hover:#D99791;
+
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; 
+    text-decoration: none;
+    text-decoration-color: none;
+}
+
+body {
+    font-family: var(--font-family-type)
+}
+
+h1 {
+    font-size: 8rem;
+}
+
+h2 {
+    font-size: 4rem;
+    letter-spacing: 35px;
+    color: var(--typography-color--subtitles);
+}
+
+p {
+    font-size: 1.3rem;
+    color: var(--typography-color--black);
+}
+
+a {
+    color: var(--typography-color--black); 
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    font-size: 2rem;
+}
+
+
+header {
+    background-image: url(./assets/icon/cat_calico.png);
+    background-color: #DEBEB1;
+    height: 800px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+    border: 3px solid #fff;
+    box-shadow: 0 0 25px #222;
+}
+
+.logo img {
+    width: 8rem;
+}
+
+.header-principal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8rem;
+    background-image: linear-gradient(to left, var(--background-color--button), rgba(255, 122, 89,0));
+}
+
+.navbar {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.nav-list li {
+    text-align: center;
+    margin-left: 30px;
+}
+
+.nav-link {
+    padding: 5px 50px;
+}
+
+#hamburger,
+.navbar-label {
+    display: none;
+}
+
+.nav-link:hover,
+.footer-nav-link:hover {
+    background-size: 100% 2px;
+    transition-duration: 0.5s;
+}
+
+.header-secundary {
+    display: flex;
+    flex-direction: column;
+    margin: 10rem 0 0 -63rem;
+    text-align: center;
+}
+
+
+/* TIENDA!, estilos MAIN */
+
+.container-gallery {
+    /* background-image: linear-gradient(to right top, #16c1e7, #54cae2, #78d3de, #98dbdd, #b4e3df, #b3ded8, #b2d8d1, #b1d3ca, #94c0b5, #78aea1, #5a9b8d, #3a897a); */
+    width: 280px;
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.8rem;
+    /* border-radius: 8px; */
+    overflow: hidden;
+    /* border: 5px solid var(--color-details-and-button); */
+    background-color: var(--color-letter-and-background);
+   
+    -webkit-box-shadow: 10px 16px 18px 0px rgba(0,0,0,0.23);
+    -moz-box-shadow: 10px 16px 18px 0px rgba(0,0,0,0.23);
+    box-shadow: 10px 16px 18px 0px rgba(0,0,0,0.23);
+    border: 0px solid #f6fcfb;
+}
+
+.container-gallery > * {
+    padding: 0 1rem;
+    text-align: center;
+    margin: 0.1rem;
+}
+
+#adoption-block {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+main h2 {
+    width: 100%;
+    text-align: center;
+}
+
+/* FOOTER */
+
+.article-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 7rem;
+    gap: 15rem;
+    background: rgb(217,151,145);
+    background: linear-gradient(90deg, rgba(217,151,145,1) 0%, rgba(222,190,177,1) 50%, rgba(191,145,105,1) 100%);
+}
+
+.footer-contact {
+    display: flex;
+    align-items: center;
+}
+
+.nav-list-footer {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.article-copyright {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 8rem;
+    background: rgb(217,151,145);
+    background: linear-gradient(90deg, rgba(217,151,145,1) 0%, rgba(222,190,177,1) 50%, rgba(191,145,105,1) 100%);
+}
+
+.footer-rrss img,
+.article-contacts img {
+    width: 40px;
+    margin: 0 1rem;
+    cursor: pointer;
+    transition: transform .3s; 
+}
+
+.footer-rrss img:hover {
+    transform: scale(1.2);
+}
