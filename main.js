@@ -73,7 +73,7 @@ const getAdoptionBoard = (photo, pet, year, desc) => {
         `;
 };
 
-const setupAdoptionBoardList = () => {
+const setupProductsList = () => {
     
     for (let i = 0; i < adoptionBoard.length; i++) {
         const adoptionBoardElement = adoptionBoard[i];
