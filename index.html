@@ -62,14 +62,44 @@
 
     </header>
 
-    <main>
+    <main id="store">
 
-        <h3>AQUÍ VA TODA LA INFORMACIÓN DE MI TIENDA!</h3>
+        <h3>Consulta los mejores productos para tus mascotas🐈</h3>
 
-        <div id="adoption-block">
-            <!-- aqui van las fotos! -->  
-        </div>
+        <section class="store-products">
+            <!-- AQUÍ VAN LOS FILTROS -->
+            <article id="filtros">
 
+                <h3>Aquí puedes filtrar tus productos favoritos</h3>
+                
+                <div class="filter-block">
+                    <h4>Selecciona tu marca preferida:</h4>
+                    <select id="option-picker">
+                        <option value="init">-</option>
+                    </select>
+                </div>
+
+                <div class="filter-block">
+                    <h4>Selecciona el precio máximo:</h4>
+                    <input type="number" id="input-filter">
+                    <button id="buton-filter">Buscar</button>
+                </div>
+                
+                <div class="reset">
+                    <br>
+                    <button id="botton-reset">Reiniciar filtros</button>
+                </div>
+
+            </article>
+
+            <article id="products-list">
+                <!-- AQUÍ VAN LOS PRODUCTOS -->
+            </article>
+
+
+        </section>
+
+    
     </main>
 
     <footer id="contact" class="footer">
@@ -132,19 +162,13 @@
                     
                 </div>
 
-                
             </article>
-
             
         </section>
         
-        
-        
     </footer>
 
-    
-
-
     <script src="./main.js"></script>
+   <!-- <script src="./filter.js"></script> -->
 </body>
 </html>
