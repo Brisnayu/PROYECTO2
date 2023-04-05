@@ -73,17 +73,27 @@
                 <h3>Aquí puedes filtrar tus productos favoritos</h3>
                 
                 <div class="filter-block">
+                    <h4>Selecciona la categoría</h4>
+                    <select id="option-category">
+                        <option value="start">- Selecciona una categoría -</option>
+                    </select>
+
+                </div>
+
+                <div class="filter-block">
                     <h4>Selecciona tu marca preferida:</h4>
                     <select id="option-picker">
-                        <option value="init">-</option>
+                        <option value="init">- Busca aquí tu marca -</option>
                     </select>
                 </div>
 
                 <div class="filter-block">
                     <h4>Selecciona el precio máximo:</h4>
-                    <input type="number" id="input-filter">
-                    <button id="buton-filter">Buscar</button>
+                    <input value="0" type="number" id="input-filter" placeholder="Introduce aquí el precio">
+                    <button id="button-filter">Buscar</button>
                 </div>
+
+                
                 
                 <div class="reset">
                     <br>
@@ -122,8 +132,8 @@
                         <img src="./assets/icon/icon-direction.png" alt="Icono Address">
                         <div>
                             <h4>Address</h4>
-                            <p>7032 Euclid St.</p>
-                            <p>Myrtle Beach, SC 29577</p>   
+                            <p>Calle Barcelona</p>
+                            <p>Esquina con la playa 500</p>   
                         </div>  
                     </div>
 
@@ -140,7 +150,7 @@
                         <img src="./assets/icon/icon-email.png" alt="Icono Email">
                         <div>
                             <h4>Email</h4>
-                            <p>thepawadvisor@gmail.com</p> 
+                            <a href="mailto:my-email@gmail.com">my-email@gmail.com</a>
                         </div>
                     </div> 
 

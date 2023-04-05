@@ -26,6 +26,8 @@
 
 html {
     scroll-behavior: smooth;
+    background-color: whitesmoke;
+    background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
 }
 
 body {
@@ -33,17 +35,17 @@ body {
 }
 
 h1 {
-    font-size: 8rem;
+    font-size: 5rem;
 }
 
 h2 {
-    font-size: 4rem;
+    font-size: 3.5rem;
     letter-spacing: 35px;
     color: var(--typography-color--subtitles);
 }
 
 h3 {
-    font-size: 3rem;
+    font-size: 2rem;
     border-bottom: 0.2rem solid var(--constraste-color);
 }
 
@@ -63,14 +65,14 @@ a {
     background-position: 0% 100%;
     background-repeat: no-repeat;
     background-size: 0% 2px;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 
 header {
     background-image: url(./assets/icon/cat_calico.png);
     background-color: #DEBEB1;
-    height: 800px;
+    height: 500px;
     width:  100vw;
     background-position: center;
     background-repeat: no-repeat;
@@ -81,8 +83,13 @@ header {
     box-shadow: 0 0 25px #222;
 }
 
+.logo {
+    display: flex;
+}
+
 .logo img {
-    width: 8rem;
+    width: 5rem;
+    
 }
 
 .header-principal {
@@ -97,7 +104,7 @@ header {
     font-size: 1.2rem;
     margin-top: 10px;
 }
-
+ 
 .nav-list {
     list-style: none;
     display: flex;
@@ -131,10 +138,8 @@ header {
     margin-top: 7%;
     text-align: center;
     flex-wrap: wrap;
-    /* height: 80%; */
     width: 50%;
-}
-
+} 
 
 /* TIENDA!, estilos MAIN */
 
@@ -168,6 +173,7 @@ main {
     -moz-box-shadow: 10px 16px 18px 0px rgba(0,0,0,0.23);
     box-shadow: 10px 16px 18px 0px rgba(0,0,0,0.23);
     border: 0px solid var(--background-color--hover);
+    background-color: whitesmoke;
 }
 
 .container-gallery:hover {
@@ -259,6 +265,11 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #ffff;
+    -webkit-box-shadow: 10px 16px 18px 0px rgba(0,0,0,0.23);
+    -moz-box-shadow: 10px 16px 18px 0px rgba(0,0,0,0.23);
+    box-shadow: 10px 16px 18px 0px rgba(0,0,0,0.23);
+    border: 0px solid var(--background-color--hover);
 }
 
 
@@ -302,12 +313,6 @@ button:hover {
     border-radius: 10rem;
     border-bottom: 0.2rem solid var(--typography-color--black);
 }
-
-
-
-
-
-
 
 
 /* FOOTER */
@@ -357,10 +362,34 @@ button:hover {
     transform: scale(1.2);
 }
 
+.no-information h3 {
+    margin: 0 4rem;
+    text-align: center;
+}
+
 @media screen and (max-width: 920px) {
     .header-principal {
-        display: block;
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .logo {
+        display: flex;
+        justify-content: center;
+    }
+
+    h1 {
+        font-size: 60px;
+    }
+
+    h2 {
+        font-size: 40px;
+    }
+
+    p {
+        font-size: 0.9rem;
     }
 
     .article-copyright {
@@ -379,5 +408,99 @@ button:hover {
         height: 14rem;
         width: 14rem;
     }
+    
+}
+
+@media screen and (max-width: 575px) {
+    
+    h4 {
+        font-size: 0.9rem;
+    }
+
+    p {
+        font-size: 0.8rem;
+    }
+
+    header {
+        margin: 0;
+        padding: 0;
+        
+    }
+
+    .nav-link {
+        padding: 0 1.5rem;
+    }
+    
+    .header-principal {
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        margin: 1rem 1rem;
+    }
+
+    .header-secundary {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 5rem;
+        backdrop-filter: blur(20px);
+    }
+
+    #products-list {
+        display: flex;
+    }
+
+    .container-gallery {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .store-products {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+
+    .article-contacts img, 
+    .article-copyright img {
+       height:2rem;
+       width: 2rem;
+    }
+
+    .article-copyright {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 0.5rem;
+    }
+    
+}
+
+
+@media screen and (max-width: 425px) {
+
+    header {
+        background-image: none;
+    }
+
+    .nav-list {
+        display: block;
+    }
+
+    .header-principal {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .header-secundary {
+        margin-top: 5rem;
+    }
+
+    
     
 }
