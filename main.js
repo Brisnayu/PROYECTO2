@@ -126,22 +126,20 @@ const getProducts = (product) => {
 
 // Pintar el listado de los productos en el HTML
 const setupProductsList = () => {
-    const productsList = document.querySelector('#products-list');    
-    for (let i = 0; i < products.length; i++) {
-        const productsElement = products[i];
-
-            productsList.innerHTML += getProducts(productsElement);
-    };
+    const productsList = document.querySelector('#products-list');
+    
+    for (const product of products) {
+        productsList.innerHTML += getProducts(product)
+    }
 
 };
-
-
 
 // Función para crear de manera dinámica las diferentes marcas y categorías de la lista!
 const addOptionsToTypeOfPicker = () => {
     const sellerPickerSelect = document.querySelector('#option-picker');
     const categoryPickerSelect = document.querySelector('#option-category');
     
+    //Creo mis dos arrays para tener mis dos filtros por categoría o marca.
     const typeOfSellerAndCategory = () => {
         const optionTypeOfSeller = [];
         const optionTypeOfCategory = [];
@@ -179,357 +177,131 @@ typeOfSellerAndCategory();
 
 // _____________________________________________________________________________________________________________________
 
+// Diferentes filtros:
 
-// Función para los filtros!
-const setupFilter = () => {
-    const sellerPickerSelect = document.querySelector('#option-picker');
-    const mainList = document.querySelector('#products-list');
-    
-    const pricePickerInput = document.querySelector('#input-filter');
-    const buttonInput = document.querySelector('#button-filter');
+// Función para filtrar por el tipo de marca:
+const filterBySeller = (typeOfSeller, newArraySeller) => {
 
-
-    const prueba1 = (event) => {
-       
-        const newSeller = event.target.value;
-
-        mainList.innerHTML = `<h4>Consulta los productos a continuación:</h4>`;
-       
-       const arraySeller = [];
-
-       if (newSeller === 'init') {
-        mainList.innerHTML = '';
-        // pricePickerInput.value = 0;
-        setupProductsList();
-       } else {
-
-        // pricePickerInput.value = 0;
-        products.forEach(element => {
-        if (element.seller === newSeller) {
-            mainList.innerHTML += getProducts(element);
-            arraySeller.push(element)}
+    // Se recorre el array original por la clave seller y es creado un nuevo array con esos productos.
+    products.forEach(product => {
+        if (product.seller === typeOfSeller) {
+            mainList.innerHTML += getProducts(product);
+            newArraySeller.push(product)}
         })
-       }
+}
 
-       if (pricePickerInput.value > 0) {
+// Función para filtrar por el precio:
+const filterByPrice = (findPrice, newArrayPrice) => {
+
+// Se recorre el array original por la clave price y es creado un nuevo array con esos productos.
+    products.forEach(product => {
+        if (product.price <= findPrice) {
+        mainList.innerHTML += getProducts(product);
+        newArrayPrice.push(product)} 
+        });
+}
+
+// Sino existe el producto que se está buscando, invoco a esta función:
+const productNotFound = () => {
+    mainList.innerHTML = `<div class="no-information">
+    <h3>Lo siento, no hay ningún producto. Por favor, intenta con otro precio.</h3>
+    <img width=400px src="./assets/icon/cute-sad.gif" alt="">
+    </div>`  
+}
+
+// Función que filtra cada vez que se cambia el valor en el select por la marca:
+const changeSellerAndPrice = (event) => {
+       
+    const valueSeller = event.target.value;
+    const valuePrice = parseInt(pricePickerInput.value);
+    mainList.innerHTML = `<h4>Consulta los productos a continuación:</h4>`;
+       
+    const arraySeller = [];
+    const arrayPrice = [];
+
+    // En caso de que se cumpla mi condición inicial del select por marca:
+    valueSeller === 'init' ? mainList.innerHTML = '' && setupProductsList() : filterBySeller(valueSeller, arraySeller);
+
+    // En caso de que se busque un valor mayor a cero en mi input:
+    if (valuePrice > 0) {
         console.log('El VALUE es mayor que 0')
         mainList.innerHTML = `<h4>Consulta los productos a continuación:</h4>`
 
-            if (newSeller === 'init') {
-                
-                products.forEach(element => {
-                    if (element.price <= pricePickerInput.value) {
-                    mainList.innerHTML += getProducts(element)} 
-                    });
+        if (valueSeller === 'init') {
+            // La condición es que mi input sea mayor a cero, y además que mi select esté en el valor inicial:
+            filterByPrice(valuePrice, arrayPrice);
 
-            } else {
-                const priceAndSeller = arraySeller.filter(element => element.price <= parseInt(pricePickerInput.value))
-            
-                if (priceAndSeller.length === 0) {
-                    mainList.innerHTML = `<div class="no-information">
-                        <h3>Lo siento, no hay ningún producto. Por favor, intenta con otro precio.</h3>
-                        <img width=400px src="./assets/icon/cute-sad.gif" alt="">
-                        </div>`  
-                } else {
-                    priceAndSeller.forEach(element => mainList.innerHTML += getProducts(element));
-                }
-            }
-        
-       }
-
-        console.log('ESTO VALE:', pricePickerInput.value)
-        // console.log(arraySeller)
-    } 
-
-    
-
-    const prueba2 = (price, seller) => {
-        mainList.innerHTML = '';
-
-        console.log(price)
-
-        for (let i = 0; i < products.length; i++) {
-            const element = products[i];
-
-            if (seller === 'init' && (element.price < price || price === '')){
-                mainList.innerHTML += getProducts(element)
-            } else {
-                if ((element.price < price || price === '') && element.seller === seller) {
-                    mainList.innerHTML += getProducts(element)
-                }
-            }
-        }
-    };
-
-    buttonInput.addEventListener('click', (ev) => {
-        // console.log('Este es el valor del input type number', pricePickerInput.value)
-        // console.log('Esta es la marca', sellerPickerSelect.value)
-
-        const numberInput = parseInt(pricePickerInput.value)
-
-            mainList.innerHTML = `
-            <h4>Consulta los productos a continuación:</h4>`;
-
-            const arrayPriceAndSeller = [];
-            const arrayPrice = []
-        
-            if (sellerPickerSelect.value === 'init'){
-
-                products.forEach(element => {
-                    if (element.price <= numberInput) {
-                    mainList.innerHTML += getProducts(element)
-                    arrayPrice.push(element)} 
-                    });
-
-                if (arrayPrice.length === 0) {
-                    mainList.innerHTML = `<div class="no-information">
-                    <h3>Lo siento, no hay ningún producto. Por favor, intenta con otro precio.</h3>
-                    <img width=400px src="./assets/icon/cute-sad.gif" alt="">
-                    </div>`  
-                }
-
-            } else {
-                    products.forEach(element => {
-                        if (element.seller === sellerPickerSelect.value) {
-                        arrayPriceAndSeller.push(element)}
-                    })
-            }
-
-            console.log(arrayPrice)
-
-
-        if(arrayPriceAndSeller.length === 0) {
-            console.log('Mi primer array es vacío')
         } else {
-            console.log('estoy en está condición')
-            const priceAndSeller = arrayPriceAndSeller.filter(element => element.price <= numberInput)
-            
-            if (priceAndSeller.length === 0) {
-                mainList.innerHTML = `<div class="no-information">
-                    <h3>Lo siento, no hay ningún producto. Por favor, intenta con otro precio.</h3>
-                    <img width=400px src="./assets/icon/cute-sad.gif" alt="">
-                    </div>`  
-            } else {
-                priceAndSeller.forEach(element => mainList.innerHTML += getProducts(element));
-            }
-            
+            // En caso de que mi input sea mayor a cero y además, tenga una marca seleccionada, se filtra los productos por el valor del input:
+            const arrayPriceAndSeller = arraySeller.filter(product => product.price <= parseInt(valuePrice));
+            // Una vez filtrados, reviso si tengo algún producto para poder mostrarlos en el HTML, en caso contrario, invocó mi función productNotFound:
+            arrayPriceAndSeller.length === 0 ? productNotFound() : arrayPriceAndSeller.forEach(product => mainList.innerHTML += getProducts(product));
+        }
+    }
+} 
+
+// Función que filtra cada vez que le doy click al botón de buscar:
+const clickSellerAndPrice = (event) => {
+
+    const valuePrice = parseInt(pricePickerInput.value);
+    const valueSeller = sellerPickerSelect.value
+
+    mainList.innerHTML = `<h4>Consulta los productos a continuación:</h4>`;
+
+    const arrayPriceAndSeller = [];
+    const arrayPrice = [];
+
+    // Reviso si mi condición del select tiene alguna marca, si es igual a 'init', invoco a mi función de filtrar por el precio:
+    if (valueSeller === 'init'){
+        filterByPrice(valuePrice, arrayPrice);
+
+        // Si mi select está en el inicial, pero además no hay ningún producto que sea menor al precio que tengo en mi input, invoco mi función de productNotFound:
+        if (arrayPrice.length === 0) {
+            productNotFound();
         }
 
+    } else {
         
-        
-        
+        // Si el select tiene alguna marca, voy a crear un nuevo array, pero no lo voy a 'pintar' en mi HTML hasta que lo necesite.
+        products.forEach(element => {
+            if (element.seller === valueSeller) {
+                arrayPriceAndSeller.push(element)}
+            })
+    }
 
-
-        // console.log(typeof pricePickerInput.value)
-        // console.log(typeof arrayPriceAndSeller[0].price)
-        
-        
-        // Encuentro los productos que cumplan con la condición y los guardo en newArray!
-        
-
-        // console.log('ESTO ESTÁ APARECIENDO?', newArray)
-        
-        // if (newArray.length === 0) {
-        //     mainList.innerHTML = `<div class="no-information">
-        //      <h3>Lo siento, no hay ningún producto. Por favor, intenta con otro precio.</h3>
-        //      <img width=400px src="./assets/icon/cute-sad.gif" alt="">
-        //      </div>`  
-        // }
-
-        // // Ordeno mi nuevo array filtrado para que me aparezcan de menor a mayor!
-        // const orderNewArray = newArray.sort((productA, productB) => productB.price < productA.price ? 1 : -1)
-        
-        // orderNewArray.forEach(element => {
-        //     mainList.innerHTML += getProducts (element)
-        // })
-                    
-    })
-
-    sellerPickerSelect.addEventListener('change', prueba1)
-
-    // const handleForm = (event) => {
-    //     const formElements = event.target;
-    //     console.log(formElements);
-    //     prueba2(formElements.price.value, formElements.sellers.value);
-    // }
-
-    
-    
-    // buttonInput.addEventListener('submit', handleForm)
-        // console.log(pruebaSeller)
-
-
-    // buttonInput.addEventListener('click', (ev) => {
-
-        
-
-    //     console.log('Esto tiene valor', newPrice)
-
-    //     mainList.innerHTML = `
-    //         <h4>Consulta los productos a continuación:</h4>`;
-            
-    //         sellerPickerSelect.value = 'init'
-            
-    //         // Encuentro los productos que cumplan con la condición y los guardo en newArray!
-    //         products.forEach(element => {
-    //             if (element.price <= pricePickerInput.value) {
-    //                 if(!newArray.includes(element)) {
-    //                     newArray.push(element)
-    //                 }
-                    
-    //             } 
-    //         });
-    
-    //         console.log('Le estoy dando click')
-            
-    //         if (newArray.length === 0) {
-    //             mainList.innerHTML = `<div class="no-information">
-    //              <h3>Lo siento, no hay ningún producto. Por favor, intenta con otro precio.</h3>
-    //              <img width=400px src="./assets/icon/cute-sad.gif" alt="">
-    //              </div>`  
-    //         }
-    
-    //         // Ordeno mi nuevo array filtrado para que me aparezcan de menor a mayor!
-    //         const orderNewArray = newArray.sort((productA, productB) => productB.price < productA.price ? 1 : -1)
-            
-    //         orderNewArray.forEach(element => {
-    //             mainList.innerHTML += getProducts (element)
-    //         })
-                        
-    //     })
-
-
-
-            // const searchByBrand = (event) => {
-            //     containerParfum.innerHTML = '';
-            //     if (event.target.value === 'ALL') {
-            //         printParfums();
-            //     } else {
-            //         for (let i = 0; i < parfums.length; i++) {
-            //             const elementParfum = parfums[i];
-            //             if (elementParfum.brand === event.target.value) {
-            //                 containerParfum.innerHTML += productTemplate(elementParfum);
-            //             }
-            //         }
-            //     }
-            
-            
-            // }  
-            
-            
-        // if (newArray.length > 0) {
-            
-        //     console.log('esto se está mostrando')
-
-        //     mainList.innerHTML = `
-        //     <h4>Consulta los productos a continuación:</h4>`;
-
-        //     for (let i = 0; i < newArray.length; i++) {
-        //         const productFilterUnidos = newArray[i];
-
-        //         if (productFilterUnidos.seller === newSeller){
-
-        //             mainList.innerHTML += getProducts (
-        //                 productFilterUnidos.photo,
-        //                 productFilterUnidos.name,
-        //                 productFilterUnidos.category,
-        //                 productFilterUnidos.seller,
-        //                 productFilterUnidos.desc,
-        //                 productFilterUnidos.price,
-        //             )
-        //         } 
-        //     }
-
-
-        // } else {
-        //         mainList.innerHTML = `
-        //     <h4>Consulta los productos a continuación:</h4>`;
-
-        //     if (newSeller === 'init') {
-        //         setupProductsList();
-        //     }
-
-        //     for (let i = 0; i < products.length; i++) {
-        //         const productFilter = products[i];
-
-        //         if (productFilter.seller === newSeller){
-
-        //             mainList.innerHTML += getProducts (
-        //                 productFilter.photo,
-        //                 productFilter.name,
-        //                 productFilter.category,
-        //                 productFilter.seller,
-        //                 productFilter.desc,
-        //                 productFilter.price,
-        //             )
-        //         } 
-        //     }
-        // }
-
-        // console.log(newArray)
-        
-    
-
+    // Si mi array creado a partir del if anterior existe (que está creado únicamente por las marcas), entro en esta condición:
+    if (arrayPriceAndSeller.length !== 0) {
   
-
-    // const filterList = document.querySelector('#filtros');
-
-    // Información del filtro por precio!
-    // buttonInput.addEventListener('click', (ev) => {
-
-    //     mainList.innerHTML = `
-    //     <h4>Consulta los productos a continuación:</h4>`;
+        // Se creará un nuevo array, filtrando por los precios que estén por debajo de mi valor en el input.
+        const priceAndSeller = arrayPriceAndSeller.filter(element => element.price <= valuePrice)
         
-    //     sellerPickerSelect.value = 'init'
-        
+        // Si al filtrar ese nuevo array, no existe ningún producto que cumpla con la condición del input mostraré la función productNotFound.
+        // En caso contrario, mostraré los elementos que cumplan la condición en mi HTML.
+        priceAndSeller.length === 0 ? productNotFound() : priceAndSeller.forEach(product => mainList.innerHTML += getProducts(product));
+    }
 
-    //     // Encuentro los productos que cumplan con la condición y los guardo en newArray!
-    //     products.forEach(element => {
-    //         if (element.price <= pricePickerInput.value) {
-    //             if(!newArray.includes(element)) {
-    //                 newArray.push(element)
-    //             }
-                
-    //         } 
-    //     });
-
-    //     console.log('ESTO ESTÁ APARECIENDO?', newArray)
-        
-    //     if (newArray.length === 0) {
-    //         mainList.innerHTML = `<div class="no-information">
-    //          <h3>Lo siento, no hay ningún producto. Por favor, intenta con otro precio.</h3>
-    //          <img width=400px src="./assets/icon/cute-sad.gif" alt="">
-    //          </div>`  
-    //     }
-
-    //     // Ordeno mi nuevo array filtrado para que me aparezcan de menor a mayor!
-    //     const orderNewArray = newArray.sort((productA, productB) => productB.price < productA.price ? 1 : -1)
-        
-    //     orderNewArray.forEach(element => {
-    //         mainList.innerHTML += getProducts (element)
-    //     })
-                    
-    // })
-
-    
-   
 }
 
 
 // Botón para resetear los filtros!
-    
 resetProducts.addEventListener('click', (ev) => {
 
     console.log('me estas clicando!')
     mainList.innerHTML = '';
     setupProductsList();
     sellerPickerSelect.value = 'init';
-    pricePickerInput.value = 0;
+    pricePickerInput.value = `Introduce aquí el precio`;
 
 })
 
-
+// Funciones iniciales para que se muestre en mi HTML:
 addOptionsToTypeOfPicker();
-// addOptionsToCategory();
 window.addEventListener('load', setupProductsList());
-window.addEventListener('load', setupFilter());
+
+// Funciones para que se ejecute mis filtros:
+buttonInput.addEventListener('click', clickSellerAndPrice)
+sellerPickerSelect.addEventListener('change', changeSellerAndPrice)
+
+buttonOrden()
+
+
