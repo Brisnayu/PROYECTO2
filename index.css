@@ -33,6 +33,8 @@ body {
     font-family: var(--font-family-type)
 }
 
+/* Estilos tipografía: */
+
 h1 {
     font-size: 5rem;
 }
@@ -46,6 +48,8 @@ h2 {
 h3 {
     font-size: 2rem;
     border-bottom: 0.2rem solid var(--constraste-color);
+    text-align: center;
+    width: 100%;
 }
 
 h4 {
@@ -69,6 +73,7 @@ a {
     font-size: 1.5rem;
 }
 
+/* Estilo HEADER */
 
 header {
     background-image: url(./assets/icon/cat_calico.png);
@@ -144,12 +149,14 @@ main {
     flex-direction: column;
     align-items: center;
     gap: 3rem;
+    min-height: 40rem;
 }
 
 .store-products {
     display: grid;
     grid-template-columns: 40% 60%;
     justify-content: center;
+    width: 100%;
 }
 
 .container-gallery {
@@ -326,6 +333,8 @@ button:hover {
     margin: 0 4rem;
     text-align: center;
 }
+
+/* Diferentes vistas: */
 
 @media screen and (max-width: 920px) {
     .header-principal {

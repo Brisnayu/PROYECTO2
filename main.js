@@ -158,7 +158,6 @@ const filterBySeller = (typeOfSeller, newArraySeller) => {
     // Se recorre el array original por la clave seller y es creado un nuevo array con esos productos.
     copyOfProducts.forEach(product => {
         if (product.seller === typeOfSeller) {
-            mainList.innerHTML += getProducts(product);
             newArraySeller.push(product)}
         })
 }
@@ -169,9 +168,15 @@ const filterByPrice = (findPrice, newArrayPrice) => {
 // Se recorre el array original por la clave price y es creado un nuevo array con esos productos.
     copyOfProducts.forEach(product => {
         if (product.price <= findPrice) {
-        mainList.innerHTML += getProducts(product);
         newArrayPrice.push(product)} 
         });
+}
+
+// Pintar los nuevos arrays en el HTML:
+const productInMain = (newArrayCreated) => {
+    newArrayCreated.forEach(product => {
+        mainList.innerHTML += getProducts(product)
+    }) 
 }
 
 // Sino existe el producto que se está buscando, invoco a esta función:
@@ -200,24 +205,30 @@ const changeSellerAndPrice = (event) => {
     const arraySeller = [];
     const arrayPrice = [];
 
-    // En caso de que se cumpla mi condición inicial del select por marca:
 
-    valueSeller === 'init' ? setupProductsList() : filterBySeller(valueSeller, arraySeller);
+    // Condiciones que se deben cumplir para "pintar" los productos que se están filtrando:
 
-    // En caso de que se busque un valor mayor a cero en mi input:
-    if (valuePrice > 0) {
-        mainList.innerHTML = `<h4>Consulta los productos a continuación:</h4>`
+    if (valueSeller === 'init' && !valuePrice) {
+        setupProductsList();
 
-        if (valueSeller === 'init') {
-            // La condición es que mi input sea mayor a cero, y además que mi select esté en el valor inicial:
-            filterByPrice(valuePrice, arrayPrice);
+    } else if (valueSeller === 'init' && valuePrice > 0) {
+        
+        filterByPrice(valuePrice, arrayPrice)
+    
+        arrayPrice.length === 0 ? productNotFound() : productInMain(arrayPrice);
 
-        } else {
-            // En caso de que mi input sea mayor a cero y además, tenga una marca seleccionada, se filtra los productos por el valor del input:
-            const arrayPriceAndSeller = arraySeller.filter(product => product.price <= parseInt(valuePrice));
-            // Una vez filtrados, reviso si tengo algún producto para poder mostrarlos en el HTML, en caso contrario, invocó mi función productNotFound:
-            arrayPriceAndSeller.length === 0 ? productNotFound() : arrayPriceAndSeller.forEach(product => mainList.innerHTML += getProducts(product));
-        }
+    } else if (valueSeller !== 'init' && !valuePrice) {
+
+        filterBySeller(valueSeller, arraySeller);
+        productInMain(arraySeller);
+
+
+    } else if (valueSeller !== 'init' && valuePrice > 0) {
+
+        filterBySeller(valueSeller, arraySeller);
+
+        const arrayPriceAndSeller = arraySeller.filter(product => product.price <= parseInt(valuePrice));
+        arrayPriceAndSeller.length === 0 ? productNotFound() : arrayPriceAndSeller.forEach(product => mainList.innerHTML += getProducts(product));
     }
     
 } 
@@ -236,6 +247,7 @@ const clickSellerAndPrice = (event) => {
     // Reviso si mi condición del select tiene alguna marca, si es igual a 'init', invoco a mi función de filtrar por el precio:
     if (valueSeller === 'init'){
         filterByPrice(valuePrice, arrayPrice);
+        productInMain(arrayPrice);
 
         // Si mi select está en el inicial, pero además no hay ningún producto que sea menor al precio que tengo en mi input, invoco mi función de productNotFound:
         if (arrayPrice.length === 0) {
@@ -245,10 +257,8 @@ const clickSellerAndPrice = (event) => {
     } else {
         
         // Si el select tiene alguna marca, voy a crear un nuevo array, pero no lo voy a 'pintar' en mi HTML hasta que lo necesite.
-        copyOfProducts.forEach(element => {
-            if (element.seller === valueSeller) {
-                arrayPriceAndSeller.push(element)}
-            })
+        filterBySeller(valueSeller, arrayPriceAndSeller);
+    
     }
 
     // Si mi array creado a partir del if anterior existe (que está creado únicamente por las marcas), entro en esta condición:
