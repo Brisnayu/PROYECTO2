@@ -79,7 +79,7 @@ header {
     background-image: url(./assets/icon/cat_calico.png);
     background-color: #DEBEB1;
     height: 500px;
-    width:  100vw;
+    width:  100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
